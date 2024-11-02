@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 
-const Color kcPrimaryColor = Color(0xFF9600FF);
-const Color kcPrimaryColorDark = Color(0xFF300151);
-const Color kcDarkGreyColor = Color(0xFF1A1B1E);
-const Color kcMediumGrey = Color(0xFF474A54);
-const Color kcLightGrey = Color.fromARGB(255, 187, 187, 187);
-const Color kcVeryLightGrey = Color(0xFFE3E3E3);
-const Color kcBackgroundColor = kcDarkGreyColor;
+class AppColors {
+  static const Color kPrimaryColor = Color.fromRGBO(46, 39, 57, 1);
+  static const Color kBlackColor = Color(0xFF000000);
+  static const Color kGreyColor = Color(0xFF827D88);
+  static const Color kLightGreyColor = Color(0xFFDBDBDF);
+  static const Color kWhiteColor = Color(0xFFFFFFFF);
+  static const Color kBackgoundColor = Color(0xFFF6F6FA);
+  static const Color kSkyBlueColor = Color(0xFF61C3F2);
+  static const Color kErrorColor = Color(0xFFF63838);
+  static const Color kWarningColor = Color(0xFFFFCC00);
+  static const Color kSuccessColor = Colors.green;
+  static const Color kLightGreenColor = Color(0xFF15D2BC);
+  static const Color kPinkColor = Color(0xFFE26CA5);
+  static const Color kPurpleColor = Color(0xFF564CA3);
+  static const Color kDarkYellowColor = Color(0xFFCD9D0F);
+}
