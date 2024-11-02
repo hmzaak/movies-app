@@ -8,6 +8,7 @@ import 'package:movies/ui/views/under_dev/under_dev_view.dart';
 // @stacked-import
 
 @StackedApp(
+  logger: StackedLogger(),
   routes: [
     MaterialRoute(page: StartupView),
     MaterialRoute(page: RootView),
