@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies/ui/common/app_colors.dart';
 import 'package:movies/ui/common/app_icons.dart';
 import 'package:movies/ui/views/under_dev/under_dev_view.dart';
+import 'package:movies/ui/views/watch/watch_view.dart';
 import 'package:stacked/stacked.dart';
 
 import 'root_viewmodel.dart';
@@ -92,13 +93,13 @@ class RootView extends StackedView<RootViewModel> {
       case 0:
         return const UnderDevView();
       case 1:
-        return const UnderDevView();
+        return const WatchView();
       case 2:
         return const UnderDevView();
       case 3:
         return const UnderDevView();
       default:
-        return const UnderDevView();
+        return const WatchView();
     }
   }
 
