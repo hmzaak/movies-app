@@ -29,7 +29,7 @@ class MySliverAppBar extends StatelessWidget {
       ),
       actions: [
         InvisibleExpandedHeader(
-          minHeight: 170,
+          minHeight: 175,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -65,7 +65,7 @@ class MySliverAppBar extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         expandedTitleScale: 1,
         title: InvisibleExpandedHeader(
-          minHeight: 170,
+          minHeight: 175,
           replacement: Padding(
             padding: EdgeInsets.all(40.sp),
             child: Column(
