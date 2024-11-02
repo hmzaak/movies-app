@@ -36,11 +36,7 @@ class RootView extends StackedView<RootViewModel> {
           topRight: Radius.circular(20.r),
         ),
         child: BottomNavigationBar(
-          backgroundColor: AppColors.kPrimaryColor,
-          selectedItemColor: AppColors.kWhiteColor,
-          unselectedItemColor: AppColors.kGreyColor,
           currentIndex: viewModel.currentIndex,
-          type: BottomNavigationBarType.fixed,
           onTap: viewModel.setIndex,
           selectedFontSize: 10.sp,
           unselectedFontSize: 10.sp,

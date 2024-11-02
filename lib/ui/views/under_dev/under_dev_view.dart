@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/ui/common/app_colors.dart';
 import 'package:stacked/stacked.dart';
 
 import 'under_dev_viewmodel.dart';
@@ -13,7 +14,7 @@ class UnderDevView extends StackedView<UnderDevViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.kBackgoundColor,
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
       ),

@@ -4,6 +4,7 @@ import 'package:movies/app/app.bottomsheets.dart';
 import 'package:movies/app/app.dialogs.dart';
 import 'package:movies/app/app.locator.dart';
 import 'package:movies/app/app.router.dart';
+import 'package:movies/ui/common/app_theme.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 Future<void> main() async {
@@ -23,8 +24,11 @@ class MainApp extends StatelessWidget {
       designSize: const Size(375, 812),
       child: MaterialApp(
         initialRoute: Routes.startupView,
+        theme: AppTheme.appTheme,
+        themeMode: ThemeMode.light,
         onGenerateRoute: StackedRouter().onGenerateRoute,
         navigatorKey: StackedService.navigatorKey,
+        debugShowCheckedModeBanner: false,
         navigatorObservers: [
           StackedService.routeObserver,
         ],
