@@ -11,6 +11,7 @@ import 'package:flutter/material.dart' as _i6;
 import 'package:logger/src/logger.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i5;
+import 'package:movies/models/movie.dart' as _i11;
 import 'package:movies/services/api_service.dart' as _i9;
 import 'package:movies/services/repository_service.dart' as _i10;
 import 'package:stacked_services/stacked_services.dart' as _i4;
@@ -760,5 +761,89 @@ class MockApiService extends _i1.Mock implements _i9.ApiService {
 /// A class which mocks [RepositoryService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRepositoryService extends _i1.Mock
-    implements _i10.RepositoryService {}
+class MockRepositoryService extends _i1.Mock implements _i10.RepositoryService {
+  @override
+  List<_i11.Movie> get allMovies => (super.noSuchMethod(
+        Invocation.getter(#allMovies),
+        returnValue: <_i11.Movie>[],
+        returnValueForMissingStub: <_i11.Movie>[],
+      ) as List<_i11.Movie>);
+
+  @override
+  set allMovies(List<_i11.Movie>? _allMovies) => super.noSuchMethod(
+        Invocation.setter(
+          #allMovies,
+          _allMovies,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get fetchingMovies => (super.noSuchMethod(
+        Invocation.getter(#fetchingMovies),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set fetchingMovies(bool? _fetchingMovies) => super.noSuchMethod(
+        Invocation.setter(
+          #fetchingMovies,
+          _fetchingMovies,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  int get listenersCount => (super.noSuchMethod(
+        Invocation.getter(#listenersCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  dynamic fetchUpcomingMoviesPage(int? page) => super.noSuchMethod(
+        Invocation.method(
+          #fetchUpcomingMoviesPage,
+          [page],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #listenToReactiveValues,
+          [reactiveValues],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}

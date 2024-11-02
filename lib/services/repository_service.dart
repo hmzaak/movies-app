@@ -1,9 +1,11 @@
 import 'package:movies/app/app.locator.dart';
 import 'package:movies/app/app.logger.dart';
+import 'package:movies/app/app.snackbars.dart';
 import 'package:movies/models/movie.dart';
 import 'package:movies/services/api_service.dart';
 import 'package:movies/ui/common/api_endpoints.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RepositoryService with ListenableServiceMixin {
   RepositoryService() {
@@ -17,6 +19,7 @@ class RepositoryService with ListenableServiceMixin {
   /// Services
   final ApiService _apiService = locator<ApiService>();
   final _logger = getLogger("RepositoryService");
+  final _snackbarService = locator<SnackbarService>();
 
   /// Variables
   List<Movie> allMovies = [];
@@ -37,6 +40,10 @@ class RepositoryService with ListenableServiceMixin {
       allMovies = movies;
     } else {
       _logger.wtf("Response is null");
+      _snackbarService.showCustomSnackBar(
+        message: "Couldn't fetch movies",
+        variant: SnackbarType.error,
+      );
     }
 
     fetchingMovies = false;
