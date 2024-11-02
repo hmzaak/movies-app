@@ -8,6 +8,7 @@ import 'package:movies/ui/views/under_dev/under_dev_view.dart';
 import 'package:movies/ui/views/watch/watch_view.dart';
 import 'package:movies/ui/views/movie_details/movie_details_view.dart';
 import 'package:movies/services/api_service.dart';
+import 'package:movies/services/repository_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -25,6 +26,7 @@ import 'package:movies/services/api_service.dart';
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: ApiService),
+    LazySingleton(classType: RepositoryService),
 // @stacked-service
   ],
   bottomsheets: [

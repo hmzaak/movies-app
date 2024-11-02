@@ -15,14 +15,20 @@ class WatchView extends StackedView<WatchViewModel> {
   ) {
     return Scaffold(
       appBar: const MyAppBar(),
-      body: ListView.separated(
-        padding: EdgeInsets.all(20.sp),
-        itemBuilder: (context, index) {
-          return const MovieContainer();
-        },
-        separatorBuilder: (context, index) => 10.verticalSpace,
-        itemCount: 10,
-      ),
+      body: viewModel.fetchingMovies
+          ? const Center(
+              child: CircularProgressIndicator.adaptive(),
+            )
+          : ListView.separated(
+              padding: EdgeInsets.all(20.sp),
+              itemBuilder: (context, index) {
+                return MovieContainer(
+                  movie: viewModel.allMovies[index],
+                );
+              },
+              separatorBuilder: (context, index) => 10.verticalSpace,
+              itemCount: viewModel.allMovies.length,
+            ),
     );
   }
 
