@@ -4,12 +4,14 @@ import 'package:movies/ui/views/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:movies/ui/views/root/root_view.dart';
+import 'package:movies/ui/views/under_dev/under_dev_view.dart';
 // @stacked-import
 
 @StackedApp(
   routes: [
     MaterialRoute(page: StartupView),
     MaterialRoute(page: RootView),
+    MaterialRoute(page: UnderDevView),
 // @stacked-route
   ],
   dependencies: [
