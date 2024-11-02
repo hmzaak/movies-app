@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/ui/widgets/common/movie_container/movie_container.dart';
-import 'package:movies/ui/widgets/common/my_app_bar/my_app_bar.dart';
+import 'package:movies/ui/views/watch/components/movie_container/movie_container.dart';
+import 'package:movies/ui/views/watch/components/my_app_bar/my_app_bar.dart';
 import 'package:stacked/stacked.dart';
 import 'watch_viewmodel.dart';
 
