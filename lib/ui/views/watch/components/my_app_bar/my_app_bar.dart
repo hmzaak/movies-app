@@ -5,11 +5,13 @@ import 'package:movies/ui/common/app_colors.dart';
 import 'package:movies/ui/common/app_icons.dart';
 import 'package:movies/ui/widgets/common/custom_text_field/custom_text_field.dart';
 import 'package:stacked/stacked.dart';
+
 import 'my_app_bar_model.dart';
 
 class MyAppBar extends StackedView<MyAppBarModel>
     implements PreferredSizeWidget {
   const MyAppBar({super.key});
+
   @override
   Widget builder(
     BuildContext context,
@@ -38,11 +40,16 @@ class MyAppBar extends StackedView<MyAppBarModel>
           secondChild: SizedBox(
             width: 1.sw - 40,
             child: CustomTextField(
+              controller: viewModel.searchController,
               hintText: "TV Shows, Movies and more",
               prefix: SvgPicture.asset(AppIcons.searchIcon),
+              onChanged: (query) {
+                viewModel.searchWithDelay(query!);
+              },
               suffix: GestureDetector(
                 onTap: () {
                   viewModel.showSearchBar = false;
+                  viewModel.onTypingStop();
                 },
                 child: const Icon(
                   Icons.close,
@@ -65,6 +72,7 @@ class MyAppBar extends StackedView<MyAppBarModel>
     BuildContext context,
   ) =>
       MyAppBarModel();
+
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

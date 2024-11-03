@@ -29,14 +29,18 @@ class TrailerView extends StackedView<TrailerViewModel> {
                 playedColor: AppColors.kSkyBlueColor,
                 handleColor: AppColors.kSkyBlueColor,
               ),
-              onEnded: (metaData) {
-                viewModel.onExitFullScreen();
+              onEnded: (_) {
+                viewModel.youtubePlayerController.reset();
+                viewModel.youtubePlayerController.toggleFullScreenMode();
+                viewModel.onExitVideoPlayer();
               },
               topActions: [
                 const Spacer(),
                 FilledButton(
                   onPressed: () {
-                    viewModel.onExitFullScreen();
+                    viewModel.youtubePlayerController.reset();
+                    viewModel.youtubePlayerController.toggleFullScreenMode();
+                    viewModel.onExitVideoPlayer();
                   },
                   style: FilledButton.styleFrom(
                     backgroundColor: AppColors.kSkyBlueColor,
@@ -59,6 +63,7 @@ class TrailerView extends StackedView<TrailerViewModel> {
 
   @override
   void onViewModelReady(TrailerViewModel viewModel) {
+    viewModel.init(videoId);
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.immersive,
       overlays: SystemUiOverlay.values,
@@ -66,7 +71,6 @@ class TrailerView extends StackedView<TrailerViewModel> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
     ]);
-    viewModel.init(videoId);
 
     super.onViewModelReady(viewModel);
   }

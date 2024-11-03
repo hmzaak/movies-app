@@ -14,6 +14,10 @@ class RepositoryService with ListenableServiceMixin {
 
     listenToReactiveValues([
       fetchingMovies,
+      _showSearchBar,
+      _isTyping,
+      _searchedMovies,
+      _isSearchLoading
     ]);
   }
 
@@ -23,8 +27,51 @@ class RepositoryService with ListenableServiceMixin {
   final _snackbarService = locator<SnackbarService>();
 
   /// Variables
-  List<Movie> allMovies = [];
-  bool fetchingMovies = false;
+  List<Movie> _allMovies = [];
+  bool _fetchingMovies = false;
+  bool _showSearchBar = false;
+  bool _isTyping = false;
+  List<Movie> _searchedMovies = [];
+  bool _isSearchLoading = false;
+
+  /// Getters
+  bool get showSearchBar => _showSearchBar;
+  bool get isTyping => _isTyping;
+  bool get fetchingMovies => _fetchingMovies;
+  List<Movie> get searchedMovies => _searchedMovies;
+  bool get isSearchLoading => _isSearchLoading;
+  List<Movie> get allMovies => _allMovies;
+
+  /// Setters
+  set showSearchBar(bool value) {
+    _showSearchBar = value;
+    notifyListeners();
+  }
+
+  set fetchingMovies(bool value) {
+    _fetchingMovies = value;
+    notifyListeners();
+  }
+
+  set allMovies(List<Movie> movies) {
+    _allMovies = movies;
+    notifyListeners();
+  }
+
+  set searchedMovies(List<Movie> movies) {
+    _searchedMovies = movies;
+    notifyListeners();
+  }
+
+  set isTyping(bool value) {
+    _isTyping = value;
+    notifyListeners();
+  }
+
+  set isSearchLoading(bool value) {
+    _isSearchLoading = value;
+    notifyListeners();
+  }
 
   /// Methods
   fetchUpcomingMoviesPage(int page) async {
@@ -100,5 +147,30 @@ class RepositoryService with ListenableServiceMixin {
       );
       return null;
     }
+  }
+
+  searchMovies(String query) {
+    isSearchLoading = true;
+    _fetchSearchedMoviesPage(1, query);
+  }
+
+  _fetchSearchedMoviesPage(int page, String query) async {
+    final response = await _apiService.get(
+        endPoint: ApiEndPoints.search,
+        params: {"page": page, "query": query, "language": "en-US"});
+    if (response != null) {
+      List<Movie> newMovies = [];
+      response.data['results'].forEach((movie) {
+        newMovies.add(Movie.fromMap(movie));
+      });
+      searchedMovies = newMovies;
+    } else {
+      _logger.wtf("Response is null");
+      _snackbarService.showCustomSnackBar(
+        message: "Couldn't fetch movies",
+        variant: SnackbarType.error,
+      );
+    }
+    isSearchLoading = false;
   }
 }

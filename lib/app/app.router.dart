@@ -5,17 +5,18 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i8;
+import 'package:flutter/material.dart' as _i9;
 import 'package:flutter/material.dart';
-import 'package:movies/models/movie.dart' as _i9;
+import 'package:movies/models/movie.dart' as _i10;
 import 'package:movies/ui/views/movie_details/movie_details_view.dart' as _i6;
 import 'package:movies/ui/views/root/root_view.dart' as _i3;
+import 'package:movies/ui/views/search/search_view.dart' as _i8;
 import 'package:movies/ui/views/startup/startup_view.dart' as _i2;
 import 'package:movies/ui/views/trailer/trailer_view.dart' as _i7;
 import 'package:movies/ui/views/under_dev/under_dev_view.dart' as _i4;
 import 'package:movies/ui/views/watch/watch_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i10;
+import 'package:stacked_services/stacked_services.dart' as _i11;
 
 class Routes {
   static const startupView = '/startup-view';
@@ -30,6 +31,8 @@ class Routes {
 
   static const trailerView = '/trailer-view';
 
+  static const searchView = '/search-view';
+
   static const all = <String>{
     startupView,
     rootView,
@@ -37,6 +40,7 @@ class Routes {
     watchView,
     movieDetailsView,
     trailerView,
+    searchView,
   };
 }
 
@@ -66,44 +70,54 @@ class StackedRouter extends _i1.RouterBase {
       Routes.trailerView,
       page: _i7.TrailerView,
     ),
+    _i1.RouteDef(
+      Routes.searchView,
+      page: _i8.SearchView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.StartupView: (data) {
-      return _i8.MaterialPageRoute<dynamic>(
+      return _i9.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.StartupView(),
         settings: data,
       );
     },
     _i3.RootView: (data) {
-      return _i8.MaterialPageRoute<dynamic>(
+      return _i9.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.RootView(),
         settings: data,
       );
     },
     _i4.UnderDevView: (data) {
-      return _i8.MaterialPageRoute<dynamic>(
+      return _i9.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.UnderDevView(),
         settings: data,
       );
     },
     _i5.WatchView: (data) {
-      return _i8.MaterialPageRoute<dynamic>(
+      return _i9.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.WatchView(),
         settings: data,
       );
     },
     _i6.MovieDetailsView: (data) {
       final args = data.getArgs<MovieDetailsViewArguments>(nullOk: false);
-      return _i8.MaterialPageRoute<dynamic>(
+      return _i9.MaterialPageRoute<dynamic>(
         builder: (context) => _i6.MovieDetailsView(args.movie, key: args.key),
         settings: data,
       );
     },
     _i7.TrailerView: (data) {
       final args = data.getArgs<TrailerViewArguments>(nullOk: false);
-      return _i8.MaterialPageRoute<dynamic>(
+      return _i9.MaterialPageRoute<dynamic>(
         builder: (context) => _i7.TrailerView(args.videoId, key: args.key),
+        settings: data,
+      );
+    },
+    _i8.SearchView: (data) {
+      return _i9.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i8.SearchView(),
         settings: data,
       );
     },
@@ -122,9 +136,9 @@ class MovieDetailsViewArguments {
     this.key,
   });
 
-  final _i9.Movie movie;
+  final _i10.Movie movie;
 
-  final _i8.Key? key;
+  final _i9.Key? key;
 
   @override
   String toString() {
@@ -151,7 +165,7 @@ class TrailerViewArguments {
 
   final String videoId;
 
-  final _i8.Key? key;
+  final _i9.Key? key;
 
   @override
   String toString() {
@@ -170,7 +184,7 @@ class TrailerViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i10.NavigationService {
+extension NavigatorStateExtension on _i11.NavigationService {
   Future<dynamic> navigateToStartupView([
     int? routerId,
     bool preventDuplicates = true,
@@ -228,8 +242,8 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> navigateToMovieDetailsView({
-    required _i9.Movie movie,
-    _i8.Key? key,
+    required _i10.Movie movie,
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -246,7 +260,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
 
   Future<dynamic> navigateToTrailerView({
     required String videoId,
-    _i8.Key? key,
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -255,6 +269,20 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }) async {
     return navigateTo<dynamic>(Routes.trailerView,
         arguments: TrailerViewArguments(videoId: videoId, key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToSearchView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.searchView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -318,8 +346,8 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> replaceWithMovieDetailsView({
-    required _i9.Movie movie,
-    _i8.Key? key,
+    required _i10.Movie movie,
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -336,7 +364,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
 
   Future<dynamic> replaceWithTrailerView({
     required String videoId,
-    _i8.Key? key,
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -345,6 +373,20 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }) async {
     return replaceWith<dynamic>(Routes.trailerView,
         arguments: TrailerViewArguments(videoId: videoId, key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithSearchView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.searchView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

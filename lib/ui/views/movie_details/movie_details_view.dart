@@ -82,8 +82,11 @@ class MovieDetailsView extends StackedView<MovieDetailsViewModel> {
                     child: CircularProgressIndicator.adaptive(),
                   )
                 else if (viewModel.images?.isEmpty == true)
-                  const Center(
-                    child: Text("No Images Found"),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 50.h),
+                      child: const Text("No Images Found"),
+                    ),
                   ),
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/ui/views/search/search_view.dart';
 import 'package:movies/ui/views/watch/components/movie_container/movie_container.dart';
 import 'package:movies/ui/views/watch/components/my_app_bar/my_app_bar.dart';
 import 'package:stacked/stacked.dart';
@@ -19,16 +20,18 @@ class WatchView extends StackedView<WatchViewModel> {
           ? const Center(
               child: CircularProgressIndicator.adaptive(),
             )
-          : ListView.separated(
-              padding: EdgeInsets.all(20.sp),
-              itemBuilder: (context, index) {
-                return MovieContainer(
-                  movie: viewModel.allMovies[index],
-                );
-              },
-              separatorBuilder: (context, index) => 10.verticalSpace,
-              itemCount: viewModel.allMovies.length,
-            ),
+          : viewModel.isTyping && viewModel.showSearchBar
+              ? const SearchView()
+              : ListView.separated(
+                  padding: EdgeInsets.all(20.sp),
+                  itemBuilder: (context, index) {
+                    return MovieContainer(
+                      movie: viewModel.allMovies[index],
+                    );
+                  },
+                  separatorBuilder: (context, index) => 10.verticalSpace,
+                  itemCount: viewModel.allMovies.length,
+                ),
     );
   }
 

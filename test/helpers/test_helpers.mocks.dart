@@ -763,20 +763,18 @@ class MockApiService extends _i1.Mock implements _i9.ApiService {
 /// See the documentation for Mockito's code generation for more information.
 class MockRepositoryService extends _i1.Mock implements _i10.RepositoryService {
   @override
-  List<_i11.Movie> get allMovies => (super.noSuchMethod(
-        Invocation.getter(#allMovies),
-        returnValue: <_i11.Movie>[],
-        returnValueForMissingStub: <_i11.Movie>[],
-      ) as List<_i11.Movie>);
+  bool get showSearchBar => (super.noSuchMethod(
+        Invocation.getter(#showSearchBar),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
 
   @override
-  set allMovies(List<_i11.Movie>? _allMovies) => super.noSuchMethod(
-        Invocation.setter(
-          #allMovies,
-          _allMovies,
-        ),
-        returnValueForMissingStub: null,
-      );
+  bool get isTyping => (super.noSuchMethod(
+        Invocation.getter(#isTyping),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
 
   @override
   bool get fetchingMovies => (super.noSuchMethod(
@@ -786,10 +784,76 @@ class MockRepositoryService extends _i1.Mock implements _i10.RepositoryService {
       ) as bool);
 
   @override
-  set fetchingMovies(bool? _fetchingMovies) => super.noSuchMethod(
+  List<_i11.Movie> get searchedMovies => (super.noSuchMethod(
+        Invocation.getter(#searchedMovies),
+        returnValue: <_i11.Movie>[],
+        returnValueForMissingStub: <_i11.Movie>[],
+      ) as List<_i11.Movie>);
+
+  @override
+  bool get isSearchLoading => (super.noSuchMethod(
+        Invocation.getter(#isSearchLoading),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  List<_i11.Movie> get allMovies => (super.noSuchMethod(
+        Invocation.getter(#allMovies),
+        returnValue: <_i11.Movie>[],
+        returnValueForMissingStub: <_i11.Movie>[],
+      ) as List<_i11.Movie>);
+
+  @override
+  set showSearchBar(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #showSearchBar,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set fetchingMovies(bool? value) => super.noSuchMethod(
         Invocation.setter(
           #fetchingMovies,
-          _fetchingMovies,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set allMovies(List<_i11.Movie>? movies) => super.noSuchMethod(
+        Invocation.setter(
+          #allMovies,
+          movies,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set searchedMovies(List<_i11.Movie>? movies) => super.noSuchMethod(
+        Invocation.setter(
+          #searchedMovies,
+          movies,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set isTyping(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isTyping,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set isSearchLoading(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isSearchLoading,
+          value,
         ),
         returnValueForMissingStub: null,
       );

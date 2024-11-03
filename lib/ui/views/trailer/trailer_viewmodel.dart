@@ -16,21 +16,29 @@ class TrailerViewModel extends BaseViewModel {
       initialVideoId: videoId,
       flags: const YoutubePlayerFlags(
         autoPlay: true,
+        enableCaption: false,
       ),
     );
     setBusy(false);
   }
 
-  void onExitFullScreen() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: SystemUiOverlay.values);
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  void onExitVideoPlayer() async {
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: SystemUiOverlay.values,
+    );
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     _navigationService.back();
   }
 
   @override
   void dispose() {
     youtubePlayerController.dispose();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     super.dispose();
   }
 }
