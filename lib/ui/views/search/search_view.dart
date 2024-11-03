@@ -21,7 +21,7 @@ class SearchView extends StackedView<SearchViewModel> {
         : viewModel.searchedMovies.isEmpty
             ? Center(
                 child: Text(
-                  "No upcoming movies",
+                  "No resutls found",
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: AppColors.kBlackColor,
                       ),

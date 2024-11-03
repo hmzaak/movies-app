@@ -11,6 +11,7 @@ import 'package:movies/services/api_service.dart';
 import 'package:movies/services/repository_service.dart';
 import 'package:movies/ui/views/trailer/trailer_view.dart';
 import 'package:movies/ui/views/search/search_view.dart';
+import 'package:movies/ui/views/seat_booking/seat_booking_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -23,6 +24,7 @@ import 'package:movies/ui/views/search/search_view.dart';
     MaterialRoute(page: MovieDetailsView),
     MaterialRoute(page: TrailerView),
     MaterialRoute(page: SearchView),
+    MaterialRoute(page: SeatBookingView),
 // @stacked-route
   ],
   dependencies: [
