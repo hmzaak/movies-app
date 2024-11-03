@@ -784,6 +784,13 @@ class MockRepositoryService extends _i1.Mock implements _i10.RepositoryService {
       ) as bool);
 
   @override
+  bool get fetchingMoreMovies => (super.noSuchMethod(
+        Invocation.getter(#fetchingMoreMovies),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
   List<_i11.Movie> get searchedMovies => (super.noSuchMethod(
         Invocation.getter(#searchedMovies),
         returnValue: <_i11.Movie>[],
@@ -805,6 +812,27 @@ class MockRepositoryService extends _i1.Mock implements _i10.RepositoryService {
       ) as List<_i11.Movie>);
 
   @override
+  int get currentPage => (super.noSuchMethod(
+        Invocation.getter(#currentPage),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  int get totalPages => (super.noSuchMethod(
+        Invocation.getter(#totalPages),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  bool get isLastPage => (super.noSuchMethod(
+        Invocation.getter(#isLastPage),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
   set showSearchBar(bool? value) => super.noSuchMethod(
         Invocation.setter(
           #showSearchBar,
@@ -817,6 +845,15 @@ class MockRepositoryService extends _i1.Mock implements _i10.RepositoryService {
   set fetchingMovies(bool? value) => super.noSuchMethod(
         Invocation.setter(
           #fetchingMovies,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set fetchingMoreMovies(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #fetchingMoreMovies,
           value,
         ),
         returnValueForMissingStub: null,
@@ -859,20 +896,29 @@ class MockRepositoryService extends _i1.Mock implements _i10.RepositoryService {
       );
 
   @override
+  set currentPage(int? value) => super.noSuchMethod(
+        Invocation.setter(
+          #currentPage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set totalPages(int? value) => super.noSuchMethod(
+        Invocation.setter(
+          #totalPages,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   int get listenersCount => (super.noSuchMethod(
         Invocation.getter(#listenersCount),
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int);
-
-  @override
-  dynamic fetchUpcomingMoviesPage(int? page) => super.noSuchMethod(
-        Invocation.method(
-          #fetchUpcomingMoviesPage,
-          [page],
-        ),
-        returnValueForMissingStub: null,
-      );
 
   @override
   _i7.Future<List<String>?> getMovieImages(int? movieId) => (super.noSuchMethod(

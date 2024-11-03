@@ -10,10 +10,11 @@ import 'package:stacked_services/stacked_services.dart';
 
 class RepositoryService with ListenableServiceMixin {
   RepositoryService() {
-    fetchUpcomingMoviesPage(1);
+    fetchUpcomingMoviesPage();
 
     listenToReactiveValues([
-      fetchingMovies,
+      _fetchingMovies,
+      _fetchingMoreMovies,
       _showSearchBar,
       _isTyping,
       _searchedMovies,
@@ -21,28 +22,35 @@ class RepositoryService with ListenableServiceMixin {
     ]);
   }
 
-  /// Services
+  // --------------------- Services ---------------------
   final ApiService _apiService = locator<ApiService>();
   final _logger = getLogger("RepositoryService");
   final _snackbarService = locator<SnackbarService>();
 
-  /// Variables
+  // --------------------- Variables ---------------------
   List<Movie> _allMovies = [];
   bool _fetchingMovies = false;
   bool _showSearchBar = false;
   bool _isTyping = false;
   List<Movie> _searchedMovies = [];
   bool _isSearchLoading = false;
+  bool _fetchingMoreMovies = false;
+  int _currentPage = 1;
+  int _totalPages = 0;
 
-  /// Getters
+  // --------------------- Getters ---------------------
   bool get showSearchBar => _showSearchBar;
   bool get isTyping => _isTyping;
   bool get fetchingMovies => _fetchingMovies;
+  bool get fetchingMoreMovies => _fetchingMoreMovies;
   List<Movie> get searchedMovies => _searchedMovies;
   bool get isSearchLoading => _isSearchLoading;
   List<Movie> get allMovies => _allMovies;
+  int get currentPage => _currentPage;
+  int get totalPages => _totalPages;
+  bool get isLastPage => _currentPage == _totalPages;
 
-  /// Setters
+  // --------------------- Setters ---------------------
   set showSearchBar(bool value) {
     _showSearchBar = value;
     notifyListeners();
@@ -50,6 +58,11 @@ class RepositoryService with ListenableServiceMixin {
 
   set fetchingMovies(bool value) {
     _fetchingMovies = value;
+    notifyListeners();
+  }
+
+  set fetchingMoreMovies(bool value) {
+    _fetchingMoreMovies = value;
     notifyListeners();
   }
 
@@ -73,15 +86,26 @@ class RepositoryService with ListenableServiceMixin {
     notifyListeners();
   }
 
-  /// Methods
-  fetchUpcomingMoviesPage(int page) async {
+  set currentPage(int value) {
+    _currentPage = value;
+    notifyListeners();
+  }
+
+  set totalPages(int value) {
+    _totalPages = value;
+    notifyListeners();
+  }
+
+  // --------------------- Functions ---------------------
+  fetchUpcomingMoviesPage() async {
     fetchingMovies = true;
     notifyListeners();
 
-    final response = await _apiService
-        .get(endPoint: ApiEndPoints.upcomingMovies, params: {"page": page});
+    final response =
+        await _apiService.get(endPoint: ApiEndPoints.upcomingMovies);
     if (response != null) {
       List<Movie> movies = [];
+      totalPages = response.data['total_pages'];
       response.data['results'].forEach((movie) {
         movies.add(Movie.fromMap(movie));
       });
@@ -95,6 +119,35 @@ class RepositoryService with ListenableServiceMixin {
     }
 
     fetchingMovies = false;
+    notifyListeners();
+  }
+
+  fetchMoreMovies() async {
+    _logger.i('Fetching more movies...');
+    fetchingMoreMovies = true;
+    notifyListeners();
+
+    currentPage++;
+    final response = await _apiService.get(
+      endPoint: ApiEndPoints.upcomingMovies,
+      params: {"page": currentPage},
+    );
+    if (response != null) {
+      _logger.w('Fetched more movies');
+      List<Movie> newMovies = [];
+      response.data['results'].forEach((movie) {
+        newMovies.add(Movie.fromMap(movie));
+      });
+      allMovies.addAll(newMovies);
+    } else {
+      _logger.wtf("Response is null");
+      _snackbarService.showCustomSnackBar(
+        message: "Couldn't fetch more movies",
+        variant: SnackbarType.error,
+      );
+    }
+
+    fetchingMoreMovies = false;
     notifyListeners();
   }
 
