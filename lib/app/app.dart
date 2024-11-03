@@ -9,6 +9,7 @@ import 'package:movies/ui/views/watch/watch_view.dart';
 import 'package:movies/ui/views/movie_details/movie_details_view.dart';
 import 'package:movies/services/api_service.dart';
 import 'package:movies/services/repository_service.dart';
+import 'package:movies/ui/views/trailer/trailer_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -19,6 +20,7 @@ import 'package:movies/services/repository_service.dart';
     MaterialRoute(page: UnderDevView),
     MaterialRoute(page: WatchView),
     MaterialRoute(page: MovieDetailsView),
+    MaterialRoute(page: TrailerView),
 // @stacked-route
   ],
   dependencies: [

@@ -2,19 +2,26 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:movies/app/app.locator.dart';
+import 'package:movies/app/app.router.dart';
 import 'package:movies/models/movie.dart';
 import 'package:movies/ui/common/app_colors.dart';
 import 'package:movies/ui/common/app_strings.dart';
 import 'package:movies/ui/widgets/common/invisible_header/invisible_header.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class MySliverAppBar extends StatelessWidget {
   final Widget title;
   final Movie movie;
+  final String? videoId;
+  final bool isTrailerLoading;
 
   const MySliverAppBar({
     super.key,
     required this.title,
     required this.movie,
+    this.videoId,
+    required this.isTrailerLoading,
   });
 
   String formatDate(DateTime date) {
@@ -106,9 +113,31 @@ class MySliverAppBar extends StatelessWidget {
                 ),
                 10.verticalSpace,
                 OutlinedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.play_arrow_rounded),
-                  label: const Text("Watch Trailer"),
+                  onPressed: videoId != null
+                      ? () {
+                          locator<NavigationService>().navigateToTrailerView(
+                            videoId: videoId!,
+                          );
+                        }
+                      : null,
+                  icon: isTrailerLoading
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator.adaptive(),
+                        )
+                      : Icon(
+                          videoId != null
+                              ? Icons.play_arrow_rounded
+                              : Icons.warning_amber_rounded,
+                        ),
+                  label: Text(
+                    isTrailerLoading
+                        ? "Loading..."
+                        : videoId != null
+                            ? "Watch Trailer"
+                            : "Trailer not found",
+                  ),
                 )
               ],
             ),

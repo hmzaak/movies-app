@@ -12,14 +12,21 @@ class MovieDetailsViewModel extends BaseViewModel {
   List<String>? images;
   bool _imagesLoading = false;
   bool _loadingMovieDetails = false;
+  bool _isTrailerLoading = false;
 
   /// Getters
   bool get imagesLoading => _imagesLoading;
   bool get loadingMovieDetails => _loadingMovieDetails;
+  bool get isTrailerLoading => _isTrailerLoading;
 
   /// Setters
   set imagesLoading(bool value) {
     _imagesLoading = value;
+    notifyListeners();
+  }
+
+  set isTrailerLoading(bool value) {
+    _isTrailerLoading = value;
     notifyListeners();
   }
 
@@ -32,5 +39,16 @@ class MovieDetailsViewModel extends BaseViewModel {
     imagesLoading = true;
     images = await _repositoryService.getMovieImages(movieId);
     imagesLoading = false;
+  }
+
+  getMovieTrailer(int movieId) async {
+    isTrailerLoading = true;
+    notifyListeners();
+
+    videoId = await _repositoryService.getMovieTrailer(movieId);
+    logger.i('Trailer Url: $videoId');
+
+    isTrailerLoading = false;
+    notifyListeners();
   }
 }

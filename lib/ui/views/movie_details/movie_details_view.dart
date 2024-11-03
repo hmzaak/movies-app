@@ -23,7 +23,12 @@ class MovieDetailsView extends StackedView<MovieDetailsViewModel> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          MySliverAppBar(title: child!, movie: movie),
+          MySliverAppBar(
+            title: child!,
+            movie: movie,
+            videoId: viewModel.videoId,
+            isTrailerLoading: viewModel.isTrailerLoading,
+          ),
           SliverPadding(
             padding: EdgeInsets.all(20.sp),
             sliver: SliverList.list(
@@ -115,6 +120,7 @@ class MovieDetailsView extends StackedView<MovieDetailsViewModel> {
   @override
   void onViewModelReady(MovieDetailsViewModel viewModel) {
     viewModel.getMovieImages(movie.id);
+    viewModel.getMovieTrailer(movie.id);
     super.onViewModelReady(viewModel);
   }
 
