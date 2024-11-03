@@ -30,7 +30,7 @@ class TrailerView extends StackedView<TrailerViewModel> {
                 handleColor: AppColors.kSkyBlueColor,
               ),
               onEnded: (_) {
-                // viewModel.youtubePlayerController.reset();
+                viewModel.youtubePlayerController.reset();
                 viewModel.youtubePlayerController.toggleFullScreenMode();
                 viewModel.onExitVideoPlayer();
               },
