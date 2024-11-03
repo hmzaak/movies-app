@@ -1,6 +1,7 @@
 import 'package:movies/app/app.locator.dart';
 import 'package:movies/app/app.logger.dart';
 import 'package:movies/app/app.snackbars.dart';
+import 'package:movies/models/genre.dart';
 import 'package:movies/models/movie.dart';
 import 'package:movies/services/api_service.dart';
 import 'package:movies/ui/common/api_endpoints.dart';
@@ -199,6 +200,26 @@ class RepositoryService with ListenableServiceMixin {
         variant: SnackbarType.error,
       );
       return null;
+    }
+  }
+
+  Future<List<Genre>> getMovieDetails(int movieId) async {
+    final response = await _apiService.get(
+      endPoint: "movie/$movieId",
+    );
+    if (response != null) {
+      List<Genre> genres = [];
+      response.data['genres'].forEach((genre) {
+        genres.add(Genre.fromMap(genre));
+      });
+      return genres;
+    } else {
+      _logger.wtf("Response is null");
+      _snackbarService.showCustomSnackBar(
+        message: "Couldn't fetch movie details",
+        variant: SnackbarType.error,
+      );
+      return [];
     }
   }
 

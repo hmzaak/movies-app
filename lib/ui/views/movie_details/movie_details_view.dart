@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/models/genre.dart';
 import 'package:movies/models/movie.dart';
 import 'package:movies/ui/common/app_colors.dart';
 import 'package:movies/ui/common/ui_helpers.dart';
@@ -41,24 +42,29 @@ class MovieDetailsView extends StackedView<MovieDetailsViewModel> {
                 Wrap(
                   runSpacing: 7.h,
                   spacing: 7.w,
-                  children: const [
-                    GenreContainer(
-                      color: AppColors.kLightGreenColor,
-                      genre: "Action",
-                    ),
-                    GenreContainer(
-                      color: AppColors.kPinkColor,
-                      genre: "Thriller",
-                    ),
-                    GenreContainer(
-                      color: AppColors.kPurpleColor,
-                      genre: "Science",
-                    ),
-                    GenreContainer(
-                      color: AppColors.kDarkYellowColor,
-                      genre: "Fiction",
-                    ),
-                  ],
+                  children: viewModel.loadingMovieDetails
+                      ? const [
+                          Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          )
+                        ]
+                      : viewModel.genres != null
+                          ? viewModel.genres!
+                              .map(
+                                (genre) => GenreContainer(
+                                  genre: genre,
+                                ),
+                              )
+                              .toList()
+                          : [
+                              GenreContainer(
+                                genre: Genre(
+                                  id: 0,
+                                  name: 'Unknown',
+                                  color: Colors.red,
+                                ),
+                              )
+                            ],
                 ),
                 spacedDivider,
                 Text(
@@ -122,8 +128,11 @@ class MovieDetailsView extends StackedView<MovieDetailsViewModel> {
 
   @override
   void onViewModelReady(MovieDetailsViewModel viewModel) {
-    viewModel.getMovieImages(movie.id);
-    viewModel.getMovieTrailer(movie.id);
+    Future.wait([
+      viewModel.getMovieImages(movie.id),
+      viewModel.getMovieTrailer(movie.id),
+      viewModel.getMovieDetails(movie.id)
+    ]);
     super.onViewModelReady(viewModel);
   }
 

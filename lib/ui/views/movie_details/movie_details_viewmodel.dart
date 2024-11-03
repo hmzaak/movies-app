@@ -1,5 +1,6 @@
 import 'package:movies/app/app.locator.dart';
 import 'package:movies/app/app.logger.dart';
+import 'package:movies/models/genre.dart';
 import 'package:movies/services/repository_service.dart';
 import 'package:stacked/stacked.dart';
 
@@ -10,6 +11,7 @@ class MovieDetailsViewModel extends BaseViewModel {
   /// Variables
   String? videoId;
   List<String>? images;
+  List<Genre>? genres;
   bool _imagesLoading = false;
   bool _loadingMovieDetails = false;
   bool _isTrailerLoading = false;
@@ -35,13 +37,14 @@ class MovieDetailsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  getMovieImages(int movieId) async {
+  /// Functions
+  Future<void> getMovieImages(int movieId) async {
     imagesLoading = true;
     images = await _repositoryService.getMovieImages(movieId);
     imagesLoading = false;
   }
 
-  getMovieTrailer(int movieId) async {
+  Future<void> getMovieTrailer(int movieId) async {
     isTrailerLoading = true;
     notifyListeners();
 
@@ -49,6 +52,16 @@ class MovieDetailsViewModel extends BaseViewModel {
     logger.i('Trailer Url: $videoId');
 
     isTrailerLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> getMovieDetails(int movieId) async {
+    loadingMovieDetails = true;
+    notifyListeners();
+
+    genres = await _repositoryService.getMovieDetails(movieId);
+
+    loadingMovieDetails = false;
     notifyListeners();
   }
 }
