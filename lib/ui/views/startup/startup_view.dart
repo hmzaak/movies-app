@@ -21,7 +21,7 @@ class StartupView extends StackedView<StartupViewModel> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Movies',
+              'El Cine',
               style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w900),
             ),
             Row(
