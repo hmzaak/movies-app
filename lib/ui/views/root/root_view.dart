@@ -108,4 +108,10 @@ class RootView extends StackedView<RootViewModel> {
     BuildContext context,
   ) =>
       RootViewModel();
+
+  @override
+  void onViewModelReady(RootViewModel viewModel) {
+    viewModel.setIndex(1);
+    super.onViewModelReady(viewModel);
+  }
 }

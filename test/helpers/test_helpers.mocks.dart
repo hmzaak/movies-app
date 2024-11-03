@@ -811,6 +811,16 @@ class MockRepositoryService extends _i1.Mock implements _i10.RepositoryService {
       );
 
   @override
+  _i7.Future<List<String>?> getMovieImages(int? movieId) => (super.noSuchMethod(
+        Invocation.method(
+          #getMovieImages,
+          [movieId],
+        ),
+        returnValue: _i7.Future<List<String>?>.value(),
+        returnValueForMissingStub: _i7.Future<List<String>?>.value(),
+      ) as _i7.Future<List<String>?>);
+
+  @override
   void listenToReactiveValues(List<dynamic>? reactiveValues) =>
       super.noSuchMethod(
         Invocation.method(

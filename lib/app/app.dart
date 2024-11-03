@@ -25,6 +25,7 @@ import 'package:movies/services/repository_service.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
+    LazySingleton(classType: SnackbarService),
     LazySingleton(classType: ApiService),
     LazySingleton(classType: RepositoryService),
 // @stacked-service

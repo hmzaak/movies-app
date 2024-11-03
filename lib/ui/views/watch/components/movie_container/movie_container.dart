@@ -30,7 +30,9 @@ class MovieContainer extends StatelessWidget {
       width: width,
       child: GestureDetector(
         onTap: () {
-          locator<NavigationService>().navigateToMovieDetailsView();
+          locator<NavigationService>().navigateToMovieDetailsView(
+            movie: movie,
+          );
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),

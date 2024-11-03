@@ -1,15 +1,31 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+import 'package:movies/models/movie.dart';
 import 'package:movies/ui/common/app_colors.dart';
-import 'package:movies/ui/common/my_utils.dart';
+import 'package:movies/ui/common/app_strings.dart';
 import 'package:movies/ui/widgets/common/invisible_header/invisible_header.dart';
 
 class MySliverAppBar extends StatelessWidget {
-  const MySliverAppBar({super.key, required this.child});
-  final Widget child;
+  final Widget title;
+  final Movie movie;
+
+  const MySliverAppBar({
+    super.key,
+    required this.title,
+    required this.movie,
+  });
+
+  String formatDate(DateTime date) {
+    DateFormat formatter = DateFormat('MMMM dd, yyyy');
+    return formatter.format(date);
+  }
+
   @override
   Widget build(BuildContext context) {
+    String imagePath = movie.backdropPath ?? movie.posterPath ?? '';
+    String imageUrl = imagesBaseUrl + imagePath;
     return SliverAppBar(
       automaticallyImplyLeading: false,
       elevation: 0,
@@ -73,10 +89,10 @@ class MySliverAppBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Center(
-                  child: child,
+                  child: title,
                 ),
                 Text(
-                  "In Theaters December 22,2021",
+                  "In Theaters ${formatDate(movie.releaseDate)}",
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge
@@ -97,7 +113,7 @@ class MySliverAppBar extends StatelessWidget {
               ],
             ),
           ),
-          child: child,
+          child: title,
         ),
         centerTitle: true,
         background: GridTile(
@@ -116,12 +132,11 @@ class MySliverAppBar extends StatelessWidget {
             ),
           ),
           child: Hero(
-            tag: "test",
+            tag: movie.id,
             transitionOnUserGestures: true,
             child: CachedNetworkImage(
               width: double.infinity,
-              imageUrl: MyUtils.getTempLink(
-                  width: 1.sw.toInt(), height: 0.5.sh.toInt()),
+              imageUrl: imageUrl,
               fit: BoxFit.cover,
               progressIndicatorBuilder: (context, url, progress) {
                 return CircularProgressIndicator.adaptive(

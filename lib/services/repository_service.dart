@@ -4,6 +4,7 @@ import 'package:movies/app/app.snackbars.dart';
 import 'package:movies/models/movie.dart';
 import 'package:movies/services/api_service.dart';
 import 'package:movies/ui/common/api_endpoints.dart';
+import 'package:movies/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -25,7 +26,7 @@ class RepositoryService with ListenableServiceMixin {
   List<Movie> allMovies = [];
   bool fetchingMovies = false;
 
-  //Methods
+  /// Methods
   fetchUpcomingMoviesPage(int page) async {
     fetchingMovies = true;
     notifyListeners();
@@ -48,5 +49,31 @@ class RepositoryService with ListenableServiceMixin {
 
     fetchingMovies = false;
     notifyListeners();
+  }
+
+  Future<List<String>?> getMovieImages(int movieId) async {
+    List<String> images = [];
+    final response = await _apiService.get(endPoint: "movie/$movieId/images");
+    if (response != null) {
+      if (response.data['backdrops'].length > 0) {
+        response.data['backdrops'].forEach((backdrop) {
+          images.add(imagesBaseUrl + backdrop['file_path']);
+        });
+        return images;
+      } else {
+        _snackbarService.showCustomSnackBar(
+          message: "No Images found",
+          variant: SnackbarType.error,
+        );
+        return [];
+      }
+    } else {
+      _logger.wtf("Response is null");
+      _snackbarService.showCustomSnackBar(
+        message: "Couldn't fetch movie trailer",
+        variant: SnackbarType.error,
+      );
+      return null;
+    }
   }
 }
