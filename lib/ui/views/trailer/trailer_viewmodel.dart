@@ -8,7 +8,6 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class TrailerViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   late YoutubePlayerController youtubePlayerController;
-  bool backCalled = false;
 
   void init(String videoId) async {
     setBusy(true);
